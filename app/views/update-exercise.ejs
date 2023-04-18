@@ -1,0 +1,44 @@
+<!-- update-exercise.ejs -->
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/_navbar.ejs') %>
+
+  <!-- Body Section -->
+  <body>
+    <div class="container">
+      <h1>Egzersiz Güncelle</h1>
+      <hr />
+      <form method="POST" action="/exercise/update-exercise/<%= exercise.id %>">
+        <div class="form-group">
+          <label for="name">İsim</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="<%= exercise.name %>"
+          />
+        </div>
+        <!-- <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3"><%= exercise.description %></textarea>
+        </div> -->
+        <div class="form-group">
+          <label for="interval">Tekrar</label>
+          <input
+            type="number"
+            class="form-control"
+            id="interval"
+            name="interval"
+            value="<%= exercise.interval %>"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+          Egzersizi Güncelle
+        </button>
+      </form>
+    </div>
+
+    <%- include('./partials/_footer.ejs') %>
+  </body>
+</html>

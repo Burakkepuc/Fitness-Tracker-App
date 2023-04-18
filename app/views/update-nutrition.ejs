@@ -1,0 +1,47 @@
+<!-- update-nutrition.ejs -->
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/_navbar.ejs') %>
+
+  <!-- Body Section -->
+  <body>
+    <div class="container">
+      <h1>Update Nutrition</h1>
+      <hr />
+      <form
+        method="POST"
+        action="/nutrition/update-nutrition/<%= nutrition.id %>"
+      >
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="<%= nutrition.name %>"
+          />
+        </div>
+        <!-- <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3"><%= nutrition.description %></textarea>
+        </div> -->
+        <div class="form-group">
+          <label for="calories">Calorie</label>
+          <input
+            type="number"
+            class="form-control"
+            id="calories"
+            name="calories"
+            value="<%= nutrition.calories %>"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+          Update Nutrition
+        </button>
+      </form>
+    </div>
+
+    <%- include('./partials/_footer.ejs') %>
+  </body>
+</html>

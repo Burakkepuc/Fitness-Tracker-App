@@ -1,0 +1,79 @@
+<!-- exercises.ejs -->
+<!DOCTYPE html>
+<html>
+ <%- include('./partials/_navbar.ejs') %>
+
+ <!--! Body Section-->
+<body>
+  <div class="container ">
+   <div class="row">
+    <div class="d-flex justify-content-between align-items-center">
+  <h1>Egzersiz Listesi</h1>
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addExerciseModal">Egzersiz Ekle</button>
+  </div>
+</div>
+
+  <!-- Modal -->
+ <div class="modal fade" id="addExerciseModal" tabindex="-1" aria-labelledby="addExerciseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addExerciseModalLabel">Egzersiz Ekle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/exercise/add-exercise">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name">Egzersiz ismi</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <!-- <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div> -->
+            <div class="form-group">
+              <label for="interval">Tekrar</label>
+              <input type="number" class="form-control" id="interval" name="interval" min="1" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            <button type="submit" class="btn btn-primary">Egzersiz Ekle</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- End of modal -->
+
+    <hr>
+    <div class="row">
+      <% exercises.forEach((exercise) => { %>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= exercise.name %></h5>
+              <!-- <p class="card-text"><%= exercise.description %></p> -->
+              <p class="card-text"><%= exercise.interval %> repeat</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="/exercise/update-exercise/<%= exercise.id %>" class="btn btn-sm btn-outline-secondary">Düzenle</a>
+                  <a href="/exercise/delete-exercise/<%= exercise.id %>" class="btn btn-sm btn-outline-danger">Sil</a>
+                </div>
+                <small class="text-muted"><%= exercise.createdAt.toLocaleDateString() %></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  
+   
+</html>
+
+ <%- include('./partials/_footer.ejs') %>
+
+</body>
+</html>
