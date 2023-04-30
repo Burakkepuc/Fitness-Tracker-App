@@ -8,7 +8,7 @@ const port = 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+//  app.use(express.static("public"));  //better and newer way than first answer
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -1,0 +1,30 @@
+const Joi = require('@hapi/joi');
+
+class ValidateAuth{
+
+  static async validateRegister(body){
+   try {
+     const validateRegisterSchema = Joi.object({
+      name: Joi.string().min(3).max(30).required(),
+      surname: Joi.string().min(3).max(30).required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().min(6).max(30).required(),
+    })
+
+    const { error } =  validateRegisterSchema.validate(body);
+    console.log(error);
+    if(error){
+      return {type:false,message: error.details[0].message}
+    
+
+  }
+  return {type: true};
+   } catch (error) {
+  return {type: false, message: error.message};
+   }
+
+}
+
+}
+
+export default ValidateAuth;
