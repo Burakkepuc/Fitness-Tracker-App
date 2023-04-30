@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,18 +11,24 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-   await queryInterface.bulkInsert('Users', [{
-    name: 'John',
-    surname: 'Doe',
-    email: 'johndoe@mail.com',
-    password: '123456',
-    createdAt: new Date(),
-    updatedAt: new Date()
-   }],{});
+     */
+    await queryInterface.bulkInsert(
+      'Users',
+      [
+        {
+          name: 'John',
+          surname: 'Doe',
+          email: 'johndoe@mail.com',
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -30,6 +36,10 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete('Users', null, {});
-  }
+    await queryInterface.bulkDelete('Users', null, {
+      restartIdentity: true,
+      truncate: true,
+      cascade: true,
+    });
+  },
 };

@@ -1,5 +1,3 @@
-import db from '../../src/models/index';
-
 import express from 'express';
 import path from 'path';
 
@@ -7,11 +5,11 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 
-class ContactController {
+class DashboardController {
   static async getAll(req, res) {
     try {
-      res.render(`${path.join(__dirname, '../views/contact')}`, {
-        title: 'Contact',
+      res.render(`${path.join(__dirname, '../views/dashboard')}`, {
+        title: 'Dashboard',
       });
     } catch (error) {
       return res.render(`${path.join(__dirname, '../views/404')}`, {
@@ -21,4 +19,4 @@ class ContactController {
   }
 }
 
-export default ContactController;
+export default DashboardController;

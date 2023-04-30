@@ -16,17 +16,26 @@ class ExerciseController {
         title: 'Exercise',
       });
     } catch (error) {
-      return res.status(500).send(error.message);
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
     }
   }
 
   static async addExercise(req, res) {
     try {
-      const exercise = await db.Exercises.create(req.body);
+      const exercise = await db.Exercises.create({
+        user_id: req.session.user_id,
+        date: new Date(),
+        name: req.body.name,
+        interval: req.body.interval,
+      });
       await exercise.save();
       res.redirect('/exercise');
     } catch (error) {
-      return res.status(500).json({error: error.message});
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
     }
   }
 
@@ -39,7 +48,9 @@ class ExerciseController {
         title: 'Update Exercise',
       });
     } catch (err) {
-      res.status(500).send(err.message);
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
     }
   }
 
@@ -55,7 +66,9 @@ class ExerciseController {
       await exercise.save();
       res.redirect('/exercise');
     } catch (error) {
-      return res.status(500).send(error.message);
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
     }
   }
 
@@ -69,7 +82,9 @@ class ExerciseController {
       await exercise.destroy();
       res.redirect('/exercise');
     } catch (error) {
-      return res.status(500).send(error.message);
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
     }
   }
 }

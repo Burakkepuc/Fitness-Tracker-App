@@ -12,11 +12,8 @@ class ValidateAuth{
     })
 
     const { error } =  validateRegisterSchema.validate(body);
-    console.log(error);
     if(error){
       return {type:false,message: error.details[0].message}
-    
-
   }
   return {type: true};
    } catch (error) {
@@ -25,6 +22,23 @@ class ValidateAuth{
 
 }
 
+static async validateLogin(body){
+  try {
+    const validateLoginSchema = Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().min(6).max(30).required(),
+    })
+
+    const { error } =  validateLoginSchema.validate(body);
+    if(error){
+      return {type:false,message: error.details[0].message}
+  }
+  return {type: true};
+  } catch (error) {
+  return {type: false, message: error.message};
+    
+  }
+  }
 }
 
 export default ValidateAuth;
