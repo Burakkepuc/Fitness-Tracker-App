@@ -7,20 +7,19 @@ const app = express();
 app.set('views', path.join(__dirname, '../views'));
 
 function verifyToken(req, res, next) {
-  const token = req.session.token;
-  console.log(token);
-  if (!token) {
-    return res.render(`${path.join(__dirname, '../views/404')}`, {
-      title: '404',
-    });
-  }
-
   try {
+    const token = req.session.token;
+    if (!token) {
+      return res.render(`${path.join(__dirname, '../views/404')}`, {
+        title: '404',
+      });
+    }
+
     const decoded = jwt.verify(token, 'SimdilikBoyle');
     req.session.user_id = decoded.id;
     next();
   } catch (error) {
-    res.redirect('/auth/lo gin');
+    res.redirect('/auth/login');
   }
 }
 

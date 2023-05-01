@@ -24,16 +24,17 @@ class NutritionController {
 
   static async addNutrition(req, res) {
     try {
-      const nutrition = await db.Nutritions.create({
+      await db.Nutritions.create({
         user_id: req.session.user_id,
         date: new Date(),
         name: req.body.name,
         calories: req.body.calories,
       });
-      await nutrition.save();
       res.redirect('/nutrition');
     } catch (error) {
-      return res.status(500).json({error: error.message});
+      return res.render(`${path.join(__dirname, '../views/404.ejs')}`, {
+        title: '404',
+      });
     }
   }
 
@@ -46,7 +47,9 @@ class NutritionController {
         title: 'Update Nutrition',
       });
     } catch (err) {
-      res.status(500).send(err.message);
+      return res.render(`${path.join(__dirname, '../views/404.ejs')}`, {
+        title: '404',
+      });
     }
   }
 
@@ -62,7 +65,11 @@ class NutritionController {
       nutrition.calories = req.body.calories;
       await nutrition.save();
       res.redirect('/nutrition');
-    } catch (error) {}
+    } catch (error) {
+      return res.render(`${path.join(__dirname, '../views/404.ejs')}`, {
+        title: '404',
+      });
+    }
   }
 
   static async deleteNutrition(req, res) {

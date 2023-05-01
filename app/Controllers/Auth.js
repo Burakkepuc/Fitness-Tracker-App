@@ -33,7 +33,17 @@ class AuthController {
   static async createUser(req, res) {
     try {
       const {name, surname, email, password} = req.body;
+
+      const validateCreateUser = await ValidateAuth.validateRegister(req.body);
+      if (!validateCreateUser.type) {
+        return res.render(`${path.join(__dirname, '../views/register')}`, {
+          title: 'Register',
+          error: validateCreateUser.message,
+        });
+      }
+
       const findUser = await db.Users.findOne({where: {email: req.body.email}});
+
       if (findUser) {
         return res.render(`${path.join(__dirname, '../views/register')}`, {
           title: 'Register',
@@ -42,13 +52,6 @@ class AuthController {
       }
 
       const hashPassword = await bcrypt.hash(password, saltRounds);
-      const validateCreateUser = await ValidateAuth.validateRegister(req.body);
-      if (!validateCreateUser.type) {
-        return res.render(`${path.join(__dirname, '../views/register')}`, {
-          title: 'Register',
-          error: validateCreateUser.message,
-        });
-      }
 
       await db.Users.create({
         name,
@@ -91,6 +94,7 @@ class AuthController {
       const findUser = await db.Users.findOne({
         where: {email},
       });
+
       if (!findUser) {
         return res.render(`${path.join(__dirname, '../views/login')}`, {
           title: 'Login',
@@ -99,15 +103,18 @@ class AuthController {
       }
 
       const validPassword = await bcrypt.compare(password, findUser.password);
+
       if (!validPassword) {
         return res.render(`${path.join(__dirname, '../views/login')}`, {
           title: 'Login',
           error: 'Invalid password',
         });
       }
+
       const token = jwt.sign({id: findUser.id}, 'SimdilikBoyle', {
         expiresIn: '2d',
       });
+
       req.session.token = token;
       return res.redirect('/dashboard');
     } catch (error) {
