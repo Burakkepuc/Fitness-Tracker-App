@@ -14,7 +14,9 @@ class NutritionController {
   // Get all nutritions
   static async getAll(req, res) {
     try {
-      const allNutrition = await db.Nutritions.findAll();
+      const allNutrition = await db.Nutritions.findAll({
+        where: {user_id: req.session.user_id},
+      });
       res.render(`${path.join(__dirname, '../views/nutritions')}`, {
         nutritions: allNutrition,
         title: 'Nutrition',

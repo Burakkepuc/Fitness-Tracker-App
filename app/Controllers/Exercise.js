@@ -12,7 +12,9 @@ class ExerciseController {
   // Get all exercises
   static async getAll(req, res) {
     try {
-      const allExercises = await db.Exercises.findAll();
+      const allExercises = await db.Exercises.findAll({
+        where: {user_id: req.session.user_id},
+      });
       res.render(`${path.join(__dirname, '../views/exercises')}`, {
         exercises: allExercises,
         title: 'Exercise',

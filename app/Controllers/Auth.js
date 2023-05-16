@@ -73,6 +73,7 @@ class AuthController {
     try {
       res.render(`${path.join(__dirname, '../views/login')}`, {
         title: 'Login',
+          error: '',
       });
     } catch (error) {
       return res.render(`${path.join(__dirname, '../views/404')}`, {
