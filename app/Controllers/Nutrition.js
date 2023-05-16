@@ -7,7 +7,11 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 
+// Nutrition pages crud operations
+
 class NutritionController {
+
+  // Get all nutritions
   static async getAll(req, res) {
     try {
       const allNutrition = await db.Nutritions.findAll();
@@ -22,6 +26,7 @@ class NutritionController {
     }
   }
 
+  // Add nutrition, we create from modal we don't need get page
   static async addNutrition(req, res) {
     try {
       await db.Nutritions.create({
@@ -38,6 +43,7 @@ class NutritionController {
     }
   }
 
+  // Get update nutrition page
   static async getUpdateNutrition(req, res) {
     try {
       const {id} = req.params;
@@ -53,6 +59,7 @@ class NutritionController {
     }
   }
 
+  // Update nutrition
   static async updateNutrition(req, res) {
     try {
       const {id} = req.params;
@@ -72,6 +79,7 @@ class NutritionController {
     }
   }
 
+  // Delete nutrition
   static async deleteNutrition(req, res) {
     try {
       const {id} = req.params;

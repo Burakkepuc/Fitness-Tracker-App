@@ -5,7 +5,9 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 
+// Just Getting the Dashboard Page
 class DashboardController {
+  // Get dashboard page
   static async getAll(req, res) {
     try {
       res.render(`${path.join(__dirname, '../views/dashboard')}`, {

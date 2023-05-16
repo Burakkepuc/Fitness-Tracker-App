@@ -7,7 +7,9 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 
+// Exercise pages crud operations
 class ExerciseController {
+  // Get all exercises
   static async getAll(req, res) {
     try {
       const allExercises = await db.Exercises.findAll();
@@ -22,6 +24,7 @@ class ExerciseController {
     }
   }
 
+  // Add exercise, we create from modal we don't need get page
   static async addExercise(req, res) {
     try {
       const exercise = await db.Exercises.create({
@@ -39,6 +42,7 @@ class ExerciseController {
     }
   }
 
+  // Get update exercise page
   static async getUpdateExercise(req, res) {
     try {
       const {id} = req.params;
@@ -54,6 +58,7 @@ class ExerciseController {
     }
   }
 
+  // Update exercise by using id
   static async updateExercise(req, res) {
     const {id} = req.params;
     try {
@@ -72,6 +77,7 @@ class ExerciseController {
     }
   }
 
+  // Delete exercise by using id
   static async deleteExercise(req, res) {
     const {id} = req.params;
     try {

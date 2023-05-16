@@ -1,10 +1,8 @@
 import db from '../../src/models/index';
-
 import express from 'express';
 import path from 'path';
 import bcrypt from 'bcrypt';
 import ValidateAuth from '../Validations/Auth';
-import session from 'express-session';
 import jwt from 'jsonwebtoken';
 
 const app = express();
@@ -12,7 +10,9 @@ const saltRounds = 10;
 
 app.set('views', path.join(__dirname, '../views'));
 
+// For Authentication 
 class AuthController {
+  // Get register page
   static async register(req, res) {
     try {
       try {
@@ -30,6 +30,7 @@ class AuthController {
     }
   }
 
+  // Post register form
   static async createUser(req, res) {
     try {
       const {name, surname, email, password} = req.body;
@@ -67,6 +68,7 @@ class AuthController {
     }
   }
 
+  // Get login page
   static async login(req, res) {
     try {
       res.render(`${path.join(__dirname, '../views/login')}`, {
@@ -79,6 +81,7 @@ class AuthController {
     }
   }
 
+  // Post login form
   static async loginUser(req, res) {
     try {
       const {email, password} = req.body;
@@ -124,6 +127,7 @@ class AuthController {
     }
   }
 
+  // Clear the session and redirect to login page
   static async logout(req, res) {
     try {
       req.session.destroy();

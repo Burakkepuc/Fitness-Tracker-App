@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       Users.hasMany(models.Nutritions, {
         foreignKey: 'user_id'
     })
-    // TODO: Egzersizlere bağla
+      Users.hasMany(models.Exercises, {
+        foreignKey: 'user_id'
+    })
+    
   }
 }
-
   Users.init({
     name: DataTypes.STRING,
     surname: DataTypes.STRING,

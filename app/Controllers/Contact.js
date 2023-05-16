@@ -7,7 +7,10 @@ const app = express();
 
 app.set('views', path.join(__dirname, '../views'));
 
+// Just Getting the Contact Page
 class ContactController {
+
+  // Get contact page
   static async getAll(req, res) {
     try {
       res.render(`${path.join(__dirname, '../views/contact')}`, {
